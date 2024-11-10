@@ -59,4 +59,42 @@ db.cust_table.getIndexes();
 
 db.cust_table.dropIndex("Item_id_1"); 
 
-db.cust_table.getIndexes();
+db.cust_table.getIndexes();  
+
+----------------------------------------------------------------------------------------
+----chatgpt------
+
+db.createCollection('website');
+
+db.website.insertMany([
+    { roll: '1', name: 'harsh', amount: 1000, url: 'www.yahoo.com' },
+    { roll: '2', name: 'jitesh', amount: 2000, url: 'www.yahoo.com' },
+    { roll: '3', name: 'rina', amount: 3000, url: 'www.google.com' },
+    { roll: '4', name: 'ash', amount: 4000, url: 'www.gmail.com' },
+    { roll: '5', name: 'ash', amount: 1000, url: 'www.pvg.com' }
+]);
+
+db.website.aggregate([{ $group: { _id: "$name", total: { $sum: "$amount" } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $avg: "$amount" } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $min: "$amount" } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $max: "$amount" } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $first: "$amount" } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $last: "$amount" } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $push: "$amount" } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $sum: 1 } } }]);
+db.website.aggregate([{ $group: { _id: "$name", total: { $addToSet: "$amount" } } }]);
+
+db.createCollection('website1');
+
+db.website1.insertOne({ r: 1, name: 'harsh' });
+
+db.website1.find().pretty();
+
+db.website1.createIndex({ name: 1 });
+db.website1.createIndex({ name: -1 });
+
+db.website1.getIndexes();
+
+db.website1.dropIndex({ name: -1 });
+
+db.website1.getIndexes();
